@@ -6,14 +6,14 @@ using namespace std;
 
 struct Node {
     string name;
-    string ufid;
+    string id;
     int height;
     Node* left;
     Node* right;
 
     Node(string name, string ufid) {
         this->name = name;
-        this->ufid = ufid;
+        this->id = id;
         this->height = 1;
         this->left = nullptr;
         this->right = nullptr;
@@ -26,7 +26,7 @@ private:
     Node* root = nullptr;
     Node* insertHelper(Node* root, string name, string ufid);
     void searchHelperName(Node *root, const string &name, vector<string> &res);
-    void searchHelperUFID(Node *root, const string &str, vector<string> &resID);
+    void searchHelperID(Node *root, const string &str, vector<string> &resID);
     Node* rotate(Node* root, string rotateLR);
     long long getBalance(Node *root);
     int UpdateHeight(Node *root);
@@ -37,12 +37,12 @@ private:
     vector<string> Preorder(Node *root, vector<string> &result);
     int levelCount(Node *root);
     vector<string> removeInorderHelper(Node *root, int n, int &counter, vector<string> &result);
-    bool searchHelperUFIDforInsert(Node *root, const string &str);
+    bool searchHelperIDforInsert(Node *root, const string &str);
 
 public:
-    void insert(string name, string ufid);
+    void insert(string name, string id);
     bool search(const string &target);
-    bool removeID(string ufid);
+    bool removeID(string id);
     vector<string> getInorder();
     vector<string> getPostorder();
     vector<string> getPreorder();

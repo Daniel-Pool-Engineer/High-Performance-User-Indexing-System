@@ -9,8 +9,7 @@ string helper::next2;
 string helper::parameterTwo;
 
 
-bool helper::verifyUFID(string verifyThis) {
-    //UFID strictly eight digits long and must be unique
+bool helper::verifyID(string verifyThis) {
     if (verifyThis.length() != 8) {
         return false;
     }
@@ -90,14 +89,14 @@ void helper::instructionReader(AVLTree *tree) {
 			getline(inStream, parameterOne,'"');
 			getline(inStream, next2, ' ');
 			getline(inStream, parameterTwo);
-			if (verifyUFID(parameterTwo) && verifyName(parameterOne)) {
+			if (verifyID(parameterTwo) && verifyName(parameterOne)) {
 				tree->insert(parameterOne,parameterTwo);
 			}else {
 				helper::testResult(false);
 			}
 		}else if (functionCalled == "remove") {
 			inStream >> parameterOne;
-			if (verifyUFID(parameterOne)) {
+			if (verifyID(parameterOne)) {
 				testResult(tree->removeID(parameterOne));
 			}else {
 				testResult(false);
@@ -111,7 +110,7 @@ void helper::instructionReader(AVLTree *tree) {
 			}else {
 				inStream >> parameterOne;
 			}
-			if (verifyUFID(parameterOne) || verifyName(parameterOne)) {
+			if (verifyID(parameterOne) || verifyName(parameterOne)) {
 				//cout<<"Called Search Function"<<endl;
 				tree->search(parameterOne);
 			}else {

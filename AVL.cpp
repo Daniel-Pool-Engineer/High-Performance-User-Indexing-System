@@ -3,8 +3,8 @@
 #include "AVL.h"
 #include "helper.h"
 
-void AVLTree::insert(std::string name, std::string ufid) {
-    if (!searchHelperUFIDforInsert(root, ufid)) {
+void AVLTree::insert(std::string name, std::string id) {
+    if (!searchHelperIDforInsert(root, id)) {
         this->root = insertHelper(this->root, name, ufid);
         helper::testResult(true);
     }else {
@@ -12,23 +12,23 @@ void AVLTree::insert(std::string name, std::string ufid) {
     }
 }
 
-bool AVLTree::searchHelperUFIDforInsert(Node *root, const std::string &str) {
+bool AVLTree::searchHelperIDforInsert(Node *root, const std::string &str) {
     if (root == nullptr) {
         return false;
     }
-    if (root->ufid == str) {
+    if (root->id == str) {
         return true;
     }
 
-    if (searchHelperUFIDforInsert(root->left, str)) {
+    if (searchHelperIDforInsert(root->left, str)) {
         return true;
     }
-    return searchHelperUFIDforInsert(root->right, str);
+    return searchHelperIDforInsert(root->right, str);
 
 }
 
-Node *AVLTree::insertHelper(Node *root, std::string name, std::string ufid) {
-    /*Code inspired from lecture 4:
+Node *AVLTree::insertHelper(Node *root, std::string name, std::string id) {
+    /*
      if the tree is null
         Replace empty tree with a new tree with the item at the root and return true.
     else if the item is equal to root. // this can be ignored since all ufids are unique meaning it can not be euqal.
@@ -40,12 +40,12 @@ Node *AVLTree::insertHelper(Node *root, std::string name, std::string ufid) {
     */
 
     if(root == nullptr){
-        return new Node(name, ufid);
+        return new Node(name, id);
     }
-    if(stoi(ufid)< stoi(root->ufid)){
-        root->left = insertHelper(root->left, name, ufid);
-    }else if (stoi(ufid)> stoi(root->ufid)) {
-        root->right = insertHelper(root->right, name, ufid);
+    if(stoi(id)< stoi(root->id)){
+        root->left = insertHelper(root->left, name, id);
+    }else if (stoi(id)> stoi(root->id)) {
+        root->right = insertHelper(root->right, name, id);
     }
 
     //UPDATE HEIGHTS
@@ -79,9 +79,7 @@ Node *AVLTree::insertHelper(Node *root, std::string name, std::string ufid) {
 }
 
 bool AVLTree::search(const std::string &target) {
-    /*Modified accordingly to make it fit the control flow of the overall project
-     and to make it work seamless with the helper functions.
-     Code inspired from lecture 4:
+    /*
      if the tree is empty
         return null (target is not found)
      else if the target matches the root node's data
@@ -107,7 +105,7 @@ bool AVLTree::search(const std::string &target) {
         }
 
     }else if (isdigit(target[0])) {
-        searchHelperUFID(root, target, resID);
+        searchHelperID(root, target, resID);
         if (!resID.empty()) {
             for (unsigned int i=0; i<resID.size(); i++) {
                 helper::printResult(resID[i]);
@@ -127,7 +125,7 @@ void AVLTree::searchHelperName(Node *root, const std::string &name, vector<strin
     }
     if (root->name == name) {
         searchResult = true;
-        res.push_back(root->ufid);
+        res.push_back(root->id);
 
     }
 
@@ -136,18 +134,18 @@ void AVLTree::searchHelperName(Node *root, const std::string &name, vector<strin
 
 }
 
-void AVLTree::searchHelperUFID(Node *root, const std::string &str, vector<string> &resID) {
+void AVLTree::searchHelperID(Node *root, const std::string &str, vector<string> &resID) {
     if (root == nullptr) {
         return;
     }
-    if (root->ufid == str) {
+    if (root->id == str) {
         searchResult = true;
         resID.push_back(root->name);
     }
-    if (stoi(str)< stoi(root->ufid)) {
-        searchHelperUFID(root->left, str, resID);
-    }else if (stoi(str)> stoi(root->ufid)) {
-        searchHelperUFID(root->right, str, resID);
+    if (stoi(str)< stoi(root->id)) {
+        searchHelperID(root->left, str, resID);
+    }else if (stoi(str)> stoi(root->id)) {
+        searchHelperID(root->right, str, resID);
     }
 }
 
@@ -211,7 +209,7 @@ vector<string> AVLTree::getInorder() {
 }
 
 vector<string> AVLTree::Inorder(Node *root, vector<string> &res) {
-    /*Module 4
+    /*
     if the tree is empty
        return
     else
@@ -256,7 +254,7 @@ vector<string> AVLTree::getPostorder() {
 
 
 bool AVLTree::removeID(std::string ufid) {
-    if (searchHelperUFIDforInsert(root, ufid)) {
+    if (searchHelperIDforInsert(root, ufid)) {
         int target = stoi(ufid);
         this->root = removeIDHelper(root, target);
         return true;
@@ -265,14 +263,13 @@ bool AVLTree::removeID(std::string ufid) {
 }
 
 Node *AVLTree::removeIDHelper(Node *root, int ufid) {
-    //referenced lecture 4 video on BST delete: provided with three cases 1) no child 2) one child
-    //3) inorder predecessor.
+    //BST delete: provided with three cases 1) no child 2) one child
     if (root == nullptr) {
         return root;
     }
-    if (ufid < stoi(root->ufid)) {
+    if (ufid < stoi(root->id)) {
         root->left = removeIDHelper(root->left, ufid);
-    }else if (ufid> stoi(root->ufid)) {
+    }else if (ufid> stoi(root->id)) {
         root->right = removeIDHelper(root->right, ufid);
     }else {
         if (root->left == nullptr && root->right == nullptr) {
@@ -291,10 +288,10 @@ Node *AVLTree::removeIDHelper(Node *root, int ufid) {
             while (succ->left != nullptr) {
                 succ = succ->left;
             }
-            root->ufid = succ->ufid;
+            root->id = succ->id;
             root->name = succ->name;
 
-            root->right = removeIDHelper(root->right, stoi(succ->ufid));
+            root->right = removeIDHelper(root->right, stoi(succ->id));
         }
     }
     if (getBalance(root)>=2) {
@@ -318,8 +315,6 @@ int AVLTree::getlevelCount() {
 }
 
 int AVLTree::levelCount(Node *root) {
-    //Credit: Daniel Pool - Programming quiz 4
-    //Just modified this to make it count each levels, removed color alternating code.
     queue<Node*> q;
     q.push(root);
     int level  = 0;
@@ -361,7 +356,7 @@ vector<string> AVLTree::removeInorderHelper(Node *root ,  int n, int& counter, v
     removeInorderHelper(root->left, n, counter, result);
     if (counter == n) {
         result.push_back(root->name);
-        removeID(root->ufid);
+        removeID(root->id);
         counter++;
         return result;
     }
