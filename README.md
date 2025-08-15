@@ -13,9 +13,9 @@ This project implements an AVL tree data structure with various operations inclu
 ## Features
 
 ### + − × ÷ AVL Tree Operations
-- **Insert**: Adds a new node with name and UFID while maintaining AVL balance.
-- **Remove**: Deletes a node by UFID while maintaining AVL balance.
-- **Search**: Finds nodes by either name or UFID.
+- **Insert**: Adds a new node with name and ID while maintaining AVL balance.
+- **Remove**: Deletes a node by ID while maintaining AVL balance.
+- **Search**: Finds nodes by either name or ID.
 - **Traversals**:
   - Inorder
   - Preorder
@@ -25,7 +25,8 @@ This project implements an AVL tree data structure with various operations inclu
   - Remove nth node in inorder traversal
 
 ### 👉 Input Validation
-- Validates UFID (must be 8 digits)
+- Validates I
+- d (must be 8 digits)
 - Validates names (must contain only alphabets and spaces)
 - Validates commands and parameters
 
@@ -39,9 +40,9 @@ This project implements an AVL tree data structure with various operations inclu
 
 The program reads commands from standard input. The first line specifies the number of commands to follow. Each subsequent line is a command in one of these formats:
 
-1. `insert "NAME" UFID`
-2. `remove UFID`
-3. `search NAME` or `search UFID`
+1. `insert "NAME" ID`
+2. `remove ID`
+3. `search NAME` or `search ID`
 4. `printInorder`
 5. `printPreorder`
 6. `printPostorder`
@@ -85,6 +86,6 @@ successful
 
 ## Notes
 
-- All UFIDs must be unique 8-digit numbers
+- All IDs must be unique 8-digit numbers
 - Names can contain spaces but must be alphabetic only
 - The tree automatically rebalances after insertions and deletions
