@@ -1,8 +1,8 @@
-## AVL Tree Implementation
+## 🌲AVL Tree Implementation
 
 This project implements an AVL tree data structure with various operations including insertion, deletion, searching, and traversal.
 
-## Files
+## 📁Files
 
 1. **AVL.h**: Header file containing the Node structure and AVLTree class declarations.
 2. **AVL.cpp**: Implementation of AVL tree operations.
@@ -12,7 +12,7 @@ This project implements an AVL tree data structure with various operations inclu
 
 ## Features
 
-### AVL Tree Operations
+### + − × ÷ AVL Tree Operations
 - **Insert**: Adds a new node with name and UFID while maintaining AVL balance.
 - **Remove**: Deletes a node by UFID while maintaining AVL balance.
 - **Search**: Finds nodes by either name or UFID.
@@ -24,18 +24,18 @@ This project implements an AVL tree data structure with various operations inclu
   - Print level count
   - Remove nth node in inorder traversal
 
-### Input Validation
+### 👉 Input Validation
 - Validates UFID (must be 8 digits)
 - Validates names (must contain only alphabets and spaces)
 - Validates commands and parameters
 
-## How to Use
+## ❓How to Use
 
 1. Compile the program using a C++ compiler (e.g., g++).
 2. Run the executable.
 3. Input commands in the specified format.
 
-### Command Format
+### 🗣️Command Format
 
 The program reads commands from standard input. The first line specifies the number of commands to follow. Each subsequent line is a command in one of these formats:
 
